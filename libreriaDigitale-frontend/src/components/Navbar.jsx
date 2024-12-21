@@ -3,7 +3,7 @@ import logo from '../assets/images/logo.png';
 
 function Navbar() {
 
-    const linkClass = "text-black hover:text-indigo-300";
+    const linkClass = "text-black font-semibold hover:text-indigo-300 bg-yellow-600 p-2 rounded-sm";
 
     return (
         <nav className="bg-yellow-800 border-yellow-700 p-5">

@@ -23,7 +23,7 @@ function App() {
       body: JSON.stringify(nuovoLibro)
     });
   }
-  
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path='/' element={<MainLayout />}>
