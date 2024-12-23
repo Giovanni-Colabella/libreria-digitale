@@ -11,6 +11,9 @@ import Catalogo from './pages/Catalogo';
 import LibroPagina from './pages/LibroPagina';
 import AggiungiLibroPagina from './pages/AggiungiLibroPagina';
 import ModificaLibro from './pages/ModificaLibro';
+import ManutenzionePagina from './pages/ManutenzionePagina';
+
+const IS_WEBSITE_DOWN = false;
 
 function App() {
 
@@ -26,13 +29,20 @@ function App() {
 
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path='/' element={<MainLayout />}>
-        <Route index element={<HomePage />} />
-        <Route path='/catalogo' element={<Catalogo />} />
-        <Route path='/catalogo/:id' element={<LibroPagina />} />
-        <Route path='/aggiungi-libro' element={<AggiungiLibroPagina aggiungiLibroSubmit={aggiungiLibro} />} />
-        <Route path='/modifica/:id' element={<ModificaLibro />} />
-      </Route>
+      IS_WEBSITE_DOWN ? (
+        <Route path='/' element={<MainLayout />}>
+          <Route index element={<ManutenzionePagina />} />
+          <Route path='*' element={<ManutenzionePagina />} />
+        </Route>
+      ) : (
+        <Route path='/' element={<MainLayout />}>
+          <Route index element={<HomePage />} />
+          <Route path='/catalogo' element={<Catalogo />} />
+          <Route path='/catalogo/:id' element={<LibroPagina />} />
+          <Route path='/aggiungi-libro' element={<AggiungiLibroPagina aggiungiLibroSubmit={aggiungiLibro} />} />
+          <Route path='/modifica/:id' element={<ModificaLibro />} />
+        </Route>
+      )
     )
   );
 

@@ -6,19 +6,31 @@ function Libri({ isHome = false }) {
     const [libri, setLibri] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
+    const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
+    const [searching, setSearching] = useState(false); // Stato per il caricamento della ricerca
+
+    // Debouncing: aggiorna il termine di ricerca dopo un ritardo
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebouncedSearchTerm(searchTerm);
+        }, 500); // Ritardo di 500 ms
+
+        return () => {
+            clearTimeout(handler); // Cancella il timer se l'utente continua a digitare
+        };
+    }, [searchTerm]);
 
     // Funzione per recuperare i libri
     const fetchLibri = async (keyword = "") => {
         setLoading(true);
+        setSearching(true); // Attiva lo stato di ricerca
+
         try {
             let endpoint;
 
             if (keyword) {
                 // Endpoint per la ricerca
                 endpoint = `${API_URL}/catalogo/cerca?keyword=${encodeURIComponent(keyword)}`;
-            } else if (isHome) {
-                // Endpoint per la home, limitato a 3 libri
-                endpoint = `${API_URL}/catalogo`;
             } else {
                 // Endpoint per l'intero catalogo
                 endpoint = `${API_URL}/catalogo`;
@@ -42,21 +54,16 @@ function Libri({ isHome = false }) {
             console.error("Errore!! ", error);
         } finally {
             setLoading(false);
+            setSearching(false); // Disattiva lo stato di ricerca
         }
     };
 
-    // Effetto per caricare i libri iniziali
+    // Effetto per aggiornare i risultati in base al termine di ricerca "debounced"
     useEffect(() => {
-        fetchLibri();
-    }, []);
+        fetchLibri(debouncedSearchTerm);
+    }, [debouncedSearchTerm]);
 
-    // Funzione per gestire la ricerca
-    const handleSearch = (e) => {
-        setSearchTerm(e.target.value);
-        fetchLibri(e.target.value);
-    };
-
-    if (loading) return <div>Caricamento...</div>;
+    if (loading && !searching) return <div>Caricamento...</div>;
 
     return (
         <section className="bg-yellow-800 px-4 py-10">
@@ -73,10 +80,13 @@ function Libri({ isHome = false }) {
                         type="text"
                         placeholder="Cerca un libro..."
                         value={searchTerm}
-                        onChange={handleSearch}
+                        onChange={(e) => setSearchTerm(e.target.value)}
                         className="w-full p-3 rounded-md border border-gray-300"
                     />
                 </div>
+
+                {/* Aggiungi un indicatore di caricamento per la ricerca */}
+                {searching && <div className="text-center">Ricerca in corso...</div>}
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {libri.length > 0 ? (
