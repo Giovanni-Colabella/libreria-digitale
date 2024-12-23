@@ -35,11 +35,22 @@ public class LibroService {
     }
 
     public Libro aggiornaLibro(int id, Libro libro) {
-        if(!repo.existsById(id))
-            return null;
+        if (libro == null) {
+            throw new IllegalArgumentException("Il libro fornito è null");
+        }
+        if (!repo.existsById(id)) {
+            throw new IllegalArgumentException("Libro con id " + id + " non trovato");
+        }
         libro.setId(id);
-        return repo.save(libro);
+        try {
+            return repo.save(libro);
+        } catch (Exception e) {
+            throw new RuntimeException("Errore durante l'aggiornamento del libro", e);
+        }
     }
 
+	public List<Libro> cercaLibri(String keyword) {
+		return repo.cercaLibri(keyword);
+	}
 
 }

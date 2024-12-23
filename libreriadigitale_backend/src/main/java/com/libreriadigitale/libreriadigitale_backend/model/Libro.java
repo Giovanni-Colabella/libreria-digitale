@@ -10,8 +10,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 public class Libro {
@@ -26,5 +26,4 @@ public class Libro {
     private BigDecimal prezzo;
     private boolean disponibile;
     private int quantita;
-
 }
