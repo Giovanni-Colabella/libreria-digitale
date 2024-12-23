@@ -64,7 +64,7 @@ function LibroPagina() {
             <div className="bg-yellow-100 p-5 rounded shadow-md">
                 <h1 className="text-3xl font-bold mb-4">{libro.titolo}</h1>
                 <h3 className="text-xl text-gray-700 mb-2">Autore: {libro.autore}</h3>
-                <h4 className="text-lg text-gray-600 mb-4">Genere: {libro.genere}</h4>
+                <h4 className="text-lg text-gray-600 mb-4">Genere: {libro.categoria}</h4>
                 <p className="text-md text-gray-800 mb-4">{libro.descrizione}</p>
                 <p className="text-lg font-bold text-black">Prezzo: €{libro.prezzo.toFixed(2)}</p>
             </div>
