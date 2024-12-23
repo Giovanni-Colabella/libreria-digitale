@@ -7,6 +7,7 @@ Questo progetto è un'applicazione di gestione di un catalogo di libri, costruit
 - Aggiunta di nuovi libri al catalogo.
 - Modifica dei dati di un libro esistente.
 - Eliminazione di libri dal catalogo.
+- Barra di ricerca per i libri.
 
 ## Tecnologie utilizzate
 - **Spring Boot**: Framework per il backend.
