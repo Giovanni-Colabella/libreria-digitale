@@ -19,3 +19,9 @@ Questo progetto è un'applicazione di gestione di un catalogo di libri, costruit
 - **HTML**: Linguaggio di markup.
 - **Tailwind CSS**
 
+## Immagini
+![HomePage](assets/homepage.png)
+![Edit](assets/edit.png)
+![Add](assets/add.png)
+![Detail](assets/detail.png)
+
